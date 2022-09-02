@@ -17,18 +17,16 @@ const displayCatagory = (categories)=>{
 
 // newDetails news
 const newsDetails = async id=>{
-    console.log(id);
     const url =`https://openapi.programming-hero.com/api/news/category/${id}`
     const res = await fetch(url);
     const data = await res.json();
     displayNews(data.data)
   }
 const displayNews = news =>{
-     
-    
-}
-loadCatagory()
-/*<div class="row">
+    const newsDiv = document.getElementById('news');
+     news.forEach(newsElement =>{
+        newsDiv.innerHTML = `
+        <div class="row">
 <div class="col-md-4">
     <img src="images/profile.jpg" alt="">
 </div>
@@ -49,4 +47,8 @@ loadCatagory()
         </div>
     </div>
 </div>
-</div>*/
+</div>
+        `
+     })
+}
+loadCatagory()
