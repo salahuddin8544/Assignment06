@@ -25,25 +25,29 @@ const newsDetails = async id=>{
 const displayNews = news =>{
     const newsDiv = document.getElementById('news');
      news.forEach(newsElement =>{
+        console.log(newsElement);
         newsDiv.innerHTML = `
         <div class="row">
 <div class="col-md-4">
-    <img src="images/profile.jpg" alt="">
+    <img src="${newsElement.thumbnail_url}" alt="">
 </div>
 <div class="col-md-8">
-    <h3>header</h3>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut magnam eveniet blanditiis laboriosam sed. Tempora vel libero id voluptate voluptatum.</p>
+    <h3>${newsElement.title}</h3>
+    <p>${newsElement.details}</p>
     <div class="d-flex">
         <div class="d-flex">
-            <img src="images/profile.jpg" alt="">
-            <h5>Salah uddin</h5>
+            <img class="rounded-circle" width="45px" src="${newsElement.author.img
+            }" alt="">
+            <h6>${newsElement.author.name
+            }</h6>
         </div>
         <div class="">
-            <i></i>
-            <span>1.5M</span>
+        <i class="fa-solid fa-eye"></i>
+            <span>${newsElement.total_view
+            }</span>
         </div>
         <div>
-            <i>arrow</i>
+        <i class="fa-solid fa-arrow-right-long"></i>
         </div>
     </div>
 </div>
