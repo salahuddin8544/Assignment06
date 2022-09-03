@@ -9,7 +9,7 @@ const displayCatagory = (categories) => {
     categories.forEach(category => {
         const div = document.createElement('div')
         div.innerHTML = `
-        <button onclick="newsDetails('${category.category_id}')" href="">${category.category_name}</button>
+        <div class ="category" onclick="newsDetails('${category.category_id}')" href="">${category.category_name}</div>
         `
         catagoryContainer.appendChild(div)
     })
@@ -23,6 +23,13 @@ const newsDetails = async id => {
     displayNews(data.data)
 }
 const displayNews = news => {
+    const notFound = document.getElementById('not-found');
+    if(news.length === 0){
+      notFound.classList.remove('d-none')      
+    }
+    else{
+        notFound.classList.add('d-none')
+    }
     const newsDiv = document.getElementById('news');
     newsDiv.textContent ='';
     const modalBody= document.getElementById('mod-body');
@@ -30,27 +37,34 @@ const displayNews = news => {
         console.log(newsElement);
         const div =  document.createElement('div')
         div.innerHTML = `
-<div class="row" data-bs-toggle="modal" data-bs-target="#modalTitle">
-<div class="col-md-4">
-    <img src="${newsElement.thumbnail_url}" alt="">
+<div class="row shadow my-3 p-2 rounded" data-bs-toggle="modal" data-bs-target="#modalTitle">
+<div class="col-12 col-md-2">
+    <img class="img-fluid" src="${newsElement.thumbnail_url}" alt="">
 </div>
-<div class="col-md-8">
+<div class="col-12 col-md-10">
     <h3>${newsElement.title}</h3>
-    <p>${newsElement.details}</p>
-    <div class="d-flex">
-        <div class="d-flex">
+    <p  class ="elpsis">${newsElement.details}</p>
+    <div class="d-flex justify-content-between align-items-end">
+        <div class="d-flex justify-content-between align-items-center">
             <img class="rounded-circle" width="45px" src="${newsElement.author.img
             }" alt="">
-            <h6>${newsElement.author.name
+            <h6 class="ms-2">${newsElement.author.name
             }</h6>
         </div>
         <div class="">
         <i class="fa-solid fa-eye"></i>
             <span>${newsElement.total_view
-            }</span>
+            } 1.5M</span>
         </div>
         <div>
-        <i class="fa-solid fa-arrow-right-long"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star-half-stroke"></i>
+        <i class="fa-regular fa-star"></i>
+        <i class="fa-regular fa-star"></i>
+        <i class="fa-regular fa-star"></i>
+        </div> 
+        <div>
+        <button class="btn btn-primary">Details<i class="fa-solid fa-chevron-right"></i></button>
         </div>
     </div>
 </div>

@@ -21,10 +21,6 @@
         <div class="d-flex justify-content-between">
             <div>
               <h3 class="fw-bold brand"><span>D</span>aily<span>N</span>ews</h3>
-                <!-- <div class="d-flex align-items-center">
-                    <button class="btn btn-primary">News</button>
-                    <h5 class="ms-2 text-primary">Daily</h5>
-                </div> -->
             </div>
             <div >
                 <ul class="d-flex align-items-end">
@@ -39,14 +35,16 @@
 </header>
 <main>
     <!-- category section -->
-    <section class="container">
-        <div class="d-flex justify-content-around" id="category-container">
-
+    <section class="container mt-3">
+        <div class="d-md-flex d-sm-block justify-content-around" id="category-container">
+        </div>
+        <div id="not-found" class="d-none text-center mt-5">
+          <h3 class="text-warning fw-bold">Data not found</h3>
         </div>
     </section>
 
     <!-- News section -->
-    <section class="container">   
+    <section class="container mt-3">   
      <div id="news">
      </div>
 
@@ -61,7 +59,7 @@
         <div class="modal-header">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div id="mod-body" class="modal-body">
+        <div id="model-body" class="modal-body">
       
         </div>
         <div class="modal-footer">

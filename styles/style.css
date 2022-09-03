@@ -17,5 +17,18 @@ hr{
 }
 .brand{
   color: #533483;
-  
+}
+.category {
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 500;
+  color: #E94560;
+}
+.elpsis{
+  text-overflow:ellipsis;
+  overflow:hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  white-space: normal;
 }
