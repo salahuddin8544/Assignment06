@@ -3,17 +3,22 @@ const loadCatagory = async () => {
     const res = await fetch(url);
     const data = await res.json();
     displayCatagory(data.data.news_category);
+
 }
 const displayCatagory = (categories) => {
     const catagoryContainer = document.getElementById('category-container');
     categories.forEach(category => {
+        // console.log(category);
         const div = document.createElement('div')
         div.innerHTML = `
         <div class ="category" onclick="newsDetails('${category.category_id}')" href="">${category.category_name}</div>
         `
         catagoryContainer.appendChild(div)
     })
+
 }
+
+//spinner
 
 // newDetails news
 const newsDetails = async id => {
@@ -21,23 +26,31 @@ const newsDetails = async id => {
     const res = await fetch(url);
     const data = await res.json();
     displayNews(data.data)
+    // start spinner
+    spinnerRunning(true)
 }
 const displayNews = news => {
+    const itemsFound = document.getElementById('items-found')
+    itemsFound.textContent='';
+    const itemsFoundValue = itemsFound.innerText;
+    const total = itemsFoundValue + news.length;
+    itemsFound.innerText = total;
+
     const notFound = document.getElementById('not-found');
-    if(news.length === 0){
-      notFound.classList.remove('d-none')      
+    if (news.length === 0) {
+        notFound.classList.remove('d-none')
     }
-    else{
+    else {
         notFound.classList.add('d-none')
     }
     const newsDiv = document.getElementById('news');
-    newsDiv.textContent ='';
-    const modalBody= document.getElementById('mod-body');
+
+    newsDiv.textContent = '';
     news.forEach(newsElement => {
-        console.log(newsElement);
-        const div =  document.createElement('div')
+        // console.log(newsElement);
+        const div = document.createElement('div')
         div.innerHTML = `
-<div class="row shadow my-3 p-2 rounded" data-bs-toggle="modal" data-bs-target="#modalTitle">
+<div onclick="modalData(${newsElement._id})" class="row shadow my-3 p-2 rounded" data-bs-toggle="modal" data-bs-target="#modalTitle">
 <div class="col-12 col-md-2">
     <img class="img-fluid" src="${newsElement.thumbnail_url}" alt="">
 </div>
@@ -64,22 +77,48 @@ const displayNews = news => {
         <i class="fa-regular fa-star"></i>
         </div> 
         <div>
-        <button class="btn btn-primary">Details<i class="fa-solid fa-chevron-right"></i></button>
+        <button onclick="modalData('${newsElement._id}')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalButton">Details<i class="fa-solid fa-chevron-right"></i></button>
         </div>
     </div>
 </div>
 </div>
         `
-newsDiv.appendChild(div)
-    modalBody.innerHTML = `
-    <img width:100px; class="img-fluid" src="${newsElement.image_url}" alt="">
-    <p>Title:${newsElement.title}</p>
-    <p>Name:${newsElement.author.name?newsElement.author.name :'no data available'}</p>
-    <p>id:${newsElement._id}</p>
-    <p>Publishead Data:${newsElement.author.published_date}</p>
-    <p>Total View: <i class="fa-solid fa-eye"></i> <span>${newsElement.total_view?newsElement.total_view:'no data avaialable'
-    }</span></p>
-    `
+        newsDiv.appendChild(div);
+        spinnerRunning(false)
     })
 }
-loadCatagory()
+const modalData = async id => {
+    console.log(id);
+    const url = `https://openapi.programming-hero.com/api/news/${id}`
+    const res = await fetch(url);
+    const data = await res.json();
+    displayModal(data.data)
+    // console.log(data);
+}
+const displayModal = value => {
+    console.log(value[0]);
+    const modalBody = document.getElementById('modal-body');
+    modalBody.textContent='';
+    const div = document.createElement('div')
+    div.innerHTML = `
+    <img width="80px" src="${value[0].author.img}" alt="">
+<p>name:${value[0].author.name?value[0].author.name:'no data found'}</p>
+<p>Total view:${value[0].total_view?value[0].total_view:'no data found'}</p>
+<p>details:${value[0].details}</p>
+    `
+    modalBody.appendChild(div);
+}
+
+loadCatagory();
+const spinnerRunning = isloading => {
+    const spinner = document.getElementById('spiiner')
+    if (isloading) {
+        spinner.classList.remove('d-none')
+    }
+    else {
+        spinner.classList.add('d-none')
+    }
+}
+
+
+
