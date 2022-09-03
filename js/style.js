@@ -24,10 +24,12 @@ const newsDetails = async id => {
 }
 const displayNews = news => {
     const newsDiv = document.getElementById('news');
+    newsDiv.textContent ='';
     const modalBody= document.getElementById('mod-body');
     news.forEach(newsElement => {
         console.log(newsElement);
-        newsDiv.innerHTML = `
+        const div =  document.createElement('div')
+        div.innerHTML = `
 <div class="row" data-bs-toggle="modal" data-bs-target="#modalTitle">
 <div class="col-md-4">
     <img src="${newsElement.thumbnail_url}" alt="">
@@ -54,6 +56,7 @@ const displayNews = news => {
 </div>
 </div>
         `
+newsDiv.appendChild(div)
     modalBody.innerHTML = `
     <img width:100px; class="img-fluid" src="${newsElement.image_url}" alt="">
     <p>Title:${newsElement.title}</p>
