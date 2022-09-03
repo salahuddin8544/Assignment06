@@ -1,33 +1,34 @@
-const loadCatagory = async() =>{
+const loadCatagory = async () => {
     const url = `https://openapi.programming-hero.com/api/news/categories`
     const res = await fetch(url);
     const data = await res.json();
-   displayCatagory(data.data.news_category);
+    displayCatagory(data.data.news_category);
 }
-const displayCatagory = (categories)=>{
+const displayCatagory = (categories) => {
     const catagoryContainer = document.getElementById('category-container');
-    categories.forEach(category=>{
+    categories.forEach(category => {
         const div = document.createElement('div')
         div.innerHTML = `
         <button onclick="newsDetails('${category.category_id}')" href="">${category.category_name}</button>
         `
-       catagoryContainer.appendChild(div)
+        catagoryContainer.appendChild(div)
     })
 }
 
 // newDetails news
-const newsDetails = async id=>{
-    const url =`https://openapi.programming-hero.com/api/news/category/${id}`
+const newsDetails = async id => {
+    const url = `https://openapi.programming-hero.com/api/news/category/${id}`
     const res = await fetch(url);
     const data = await res.json();
     displayNews(data.data)
-  }
-const displayNews = news =>{
+}
+const displayNews = news => {
     const newsDiv = document.getElementById('news');
-     news.forEach(newsElement =>{
+    const modalBody= document.getElementById('mod-body');
+    news.forEach(newsElement => {
         console.log(newsElement);
         newsDiv.innerHTML = `
-        <div class="row">
+<div class="row" data-bs-toggle="modal" data-bs-target="#modalTitle">
 <div class="col-md-4">
     <img src="${newsElement.thumbnail_url}" alt="">
 </div>
@@ -53,6 +54,15 @@ const displayNews = news =>{
 </div>
 </div>
         `
-     })
+    modalBody.innerHTML = `
+    <img width:100px; class="img-fluid" src="${newsElement.image_url}" alt="">
+    <p>Title:${newsElement.title}</p>
+    <p>Name:${newsElement.author.name?newsElement.author.name :'no data available'}</p>
+    <p>id:${newsElement._id}</p>
+    <p>Publishead Data:${newsElement.author.published_date}</p>
+    <p>Total View: <i class="fa-solid fa-eye"></i> <span>${newsElement.total_view?newsElement.total_view:'no data avaialable'
+    }</span></p>
+    `
+    })
 }
 loadCatagory()
