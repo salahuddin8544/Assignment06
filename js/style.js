@@ -103,8 +103,8 @@ const displayModal = value => {
     const div = document.createElement('div')
     div.innerHTML = `
     <img width="80px" src="${value[0].author.img}" alt="">
-<p>name:${value[0].author.name ? value[0].author.name : 'no data found'}</p>
-<p>Total view:${value[0].total_view ? value[0].total_view : 'no data found'}</p>
+<p>Name:${value[0].author.name ? value[0].author.name : 'No data found'}</p>
+<p>Total view:${value[0].total_view ? value[0].total_view : 'No data found'}</p>
 <p>details:${value[0].details}</p>
     `
     modalBody.appendChild(div);
