@@ -43,7 +43,7 @@ const displayNews = news => {
     news.forEach(newsElement => {
         const div = document.createElement('div')
         div.innerHTML = `
-<div onclick="modalData(${newsElement._id})" class="row shadow my-3 p-2 rounded" data-bs-toggle="modal" data-bs-target="#modalTitle">
+<div onclick="modalData(${newsElement._id})" class="row shadow my-3 p-2 rounded" data-bs-toggle="modal" data-bs-target="#modalButton">
 <div class="col-12 col-md-2">
     <img class="img-fluid" src="${newsElement.thumbnail_url}" alt="">
 </div>
